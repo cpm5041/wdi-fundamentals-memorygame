@@ -1,13 +1,8 @@
 console.log("JS file is connected to HTML! Woo!")
-/*var cardOne = "queen";
-var cardTwo = "king";
-var cardThree = "queen";
-var cardFour = "king";*/
+
 var cards = ['queen', 'queen', 'king', 'king'];
-
 var cardsInPlay = [ ];
-
-var gameBoard = document.getElementById('game-board');
+//var gameBoard = document.getElementById('game-board');
 
 /*if (cardTwo === cardFour) {
 	alert ('You found a match!');
@@ -18,25 +13,58 @@ else if (cardOne === cardThree) {
 else {
 	alert ('Sorry, try again');*/
 
-var createCards = function () {
+/*var createCards = function () {
 for (var i = 0; i < cards.length; i++){
 
 	var cardElement = document.createElement('div');
 		cardElement.className = 'card';
 		gameBoard.appendChild(cardElement);
 
+	}
 }
+
+var createBoard = function () {
+for (var i = 0; i < cards.length; i++){
+
+	}
+}*/
+// find the board and set it to a variable
+// so that we can add cards to it
+var board = document.getElementById('game-board');
+function createBoard() {
+  for (var i=0; i<cards.length; i++) {
+    var cardElement = document.createElement('div');
+    cardElement.className = 'card';
+    cardElement.setAttribute('data-card', cards[i]);
+    cardElement.addEventListener('click', isTwoCards);
+
+    board.appendChild(cardElement);
+    board.appendChild(cardElement);
+  }
+
 }
-createCards();
+function isTwoCards() {
+  cardsInPlay.push(this.getAttribute('data-card'));
+	console.log(this.getAttribute('data-card'));
+	if (this.getAttribute('data-card') === 'king') {
+		this.innerHTML = "<img src='http://i.imgur.com/bnuv5Im.png'>"; // king
+	} else {
+		this.innerHTML = "<img src='http://i.imgur.com/v6buNt2.png'>"; //queen
+	}
+  if (cardsInPlay.length === 2) {
+    isMatch(cardsInPlay);
+    cardsInPlay = [];
+  }
+}
+
+function isMatch(cards) {
+  if (cards[0] === cards[1]) {
+    alert("You found a match!");
+  } else {
+    alert("Sorry, try again.");
+
+  }
+}
+createBoard();
 
 
-/*7) Append each newly created card to the div with the ID game-board.
-
-Create Functions to Organize Your Code
-
-8) Create a function called createCards in your JavaScript file. This function
- will contain the code you just wrote to generate your cards.
-
-9) Be sure to execute/fire your createCards function so it runs!
-
-10) Once you've done that, your cards will be created! Be sure to check your page in a web browser to verify that everything works as intended.*/
